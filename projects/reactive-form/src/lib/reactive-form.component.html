@@ -1,0 +1,62 @@
+<form
+  class="dynamic-form"
+  [formGroup]="form"
+  (submit)="handleSubmit($event)">
+  <ng-container *ngFor="let field of config">
+    <form-layout>
+      <div labelContent>
+        <label>{{ field.label}}: </label>
+      </div>
+      <div formContent>
+        <ng-container 
+          [ngTemplateOutlet]="formTemplate"
+          [ngTemplateOutletContext]="{field: field}">
+        </ng-container>
+      </div>
+      <div errorContent>
+        <ng-container *ngIf="submitted && f[field.key].errors">
+          <p style="color:red" *ngFor="let error of f[field.key].errors | keyvalue">
+            {{error.key}} - {{field.errors[error.key]}}
+          </p>
+        </ng-container> 
+      </div>
+    </form-layout>
+  </ng-container>
+  <button
+    type="submit">
+    {{ configForm.form.submitButton.title }}
+  </button>
+</form>
+
+<ng-template #formTemplate let-field="field">
+  <ng-container *ngIf="!field.groups && !field.arrays">
+    <ng-container  
+      dynamicField
+      [components]="componentHandler"
+      [config]="field"
+      [group]="form">
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="field.groups">
+    <ng-container *ngFor="let group of field.groups">
+      <ng-container  
+        dynamicField
+        [components]="componentHandler"
+        [config]="group"
+        [group]="form.controls[field.key]">
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="field.arrays && form.controls[field.key]">
+    <ng-container *ngFor="let ui of form.controls[field.key]['controls']">
+      <ng-container *ngFor="let group of field.arrays">
+        <ng-container  
+          dynamicField
+          [components]="componentHandler"
+          [config]="group"
+          [group]="ui">
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>

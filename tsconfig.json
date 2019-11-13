@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "reactive-form": [
+        "dist/reactive-form"
+      ],
+      "reactive-form/*": [
+        "dist/reactive-form/*"
+      ]
+    }
   }
 }

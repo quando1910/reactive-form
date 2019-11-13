@@ -1,0 +1,8 @@
+<div 
+  class="dynamic-field form-input" 
+  [formGroup]="group">
+  <input
+    [type]="config.inputType.type"
+    [attr.placeholder]="config.inputType.placeholder"
+    [formControlName]="config.key">
+</div>

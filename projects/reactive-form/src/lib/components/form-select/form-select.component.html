@@ -1,0 +1,10 @@
+<div 
+  class="dynamic-field form-select"
+  [formGroup]="group">
+  <select [formControlName]="config.key">
+    <option value="">{{ config.inputType.placeholder }}</option>
+    <option *ngFor="let option of config.inputType.data" [value]="option.value">
+      {{ option.text }} - {{ option.value }}
+    </option>
+  </select>
+</div>
