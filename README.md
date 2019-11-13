@@ -14,6 +14,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   - [components]: help us custom the input components. Please read the document below for clear this function.
   - (submit): an event when user click submit form.
 - You need to settings the config file. This file will help reactive form build their input.
+```
 {
   `form`: { // config some common things of form
     `submitButton`: {
@@ -41,6 +42,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   `arrays`: Array<any> // Optional, Setting the input for Form Array.
   }
 }
+```
 
 ## How to custom UI
 #### Custom Layout
