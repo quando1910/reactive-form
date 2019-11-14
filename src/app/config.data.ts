@@ -1,5 +1,7 @@
 import { Validators } from '@angular/forms';
-import ReactiveValidator from 'projects/reactive-form/src/lib/customValidator/validator';
+import { ReactiveFormService } from '@theflames/reactive-form';
+
+const validators = new ReactiveFormService();
 
 export default {
   form: {
@@ -96,7 +98,7 @@ export default {
       inputType: {
         name: 'file',
       },
-      validation: [Validators.required, ReactiveValidator.requiredFileType('jpg')],
+      validation: [Validators.required, validators.requiredFileType('jpg')],
       errors: {
         required: 'file image is required',
         requiredFileType: 'Not the type of image'

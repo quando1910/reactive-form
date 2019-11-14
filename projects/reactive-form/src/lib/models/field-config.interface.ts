@@ -44,6 +44,18 @@ export interface FieldConfig {
      * It accepts the Array of string of object `{text: string; value: number|string}`
      */
     data?: Array<string | SelectBoxData>;
+    /**
+     * For Textarea, setting the rows.
+     */
+    rows?: number | string;
+    /**
+     * For Textarea, setting the cols.
+     */
+    cols?: number | string;
+    /**
+     * For checkbox, setting the UI.
+     */
+    template?: any;
   };
   /**
      * Set it true, This key will disabled input.

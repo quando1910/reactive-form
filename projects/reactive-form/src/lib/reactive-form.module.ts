@@ -36,7 +36,7 @@ import { FormTextAreaComponent } from './components/form-textarea/form-textarea.
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+  ]
 })
-export class ReactiveFormModule { }
+export class ReactiveFormModule {}
