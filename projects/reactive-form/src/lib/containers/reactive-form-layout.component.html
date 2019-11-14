@@ -1,11 +1,14 @@
 <div class="form-layout">
   <div class="label-content">
-    <ng-content select="[labelContent]"></ng-content>
+    <ng-container 
+    [ngTemplateOutlet]="labelContent"
+    [ngTemplateOutletContext]="{field: field}">
+  </ng-container>
   </div>
   <div class="form-content">
-    <ng-content select="[formContent]"></ng-content>
+    <ng-container *ngTemplateOutlet="labelContent"></ng-container>
   </div>
   <div class="error">
-    <ng-content select="[errorContent]"></ng-content>
+    <ng-container *ngTemplateOutlet="labelContent"></ng-container>
   </div>
 </div>

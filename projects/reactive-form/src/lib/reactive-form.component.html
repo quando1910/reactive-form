@@ -3,24 +3,10 @@
   [formGroup]="form"
   (submit)="handleSubmit($event)">
   <ng-container *ngFor="let field of config">
-    <form-layout>
-      <div labelContent>
-        <label>{{ field.label}}: </label>
-      </div>
-      <div formContent>
-        <ng-container 
-          [ngTemplateOutlet]="formTemplate"
-          [ngTemplateOutletContext]="{field: field}">
-        </ng-container>
-      </div>
-      <div errorContent>
-        <ng-container *ngIf="submitted && f[field.key].errors">
-          <p style="color:red" *ngFor="let error of f[field.key].errors | keyvalue">
-            {{error.key}} - {{field.errors[error.key]}}
-          </p>
-        </ng-container> 
-      </div>
-    </form-layout>
+    <ng-container
+      [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
+      [ngTemplateOutletContext]="{field: field, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+    </ng-container>
   </ng-container>
   <button
     type="submit">
@@ -28,7 +14,39 @@
   </button>
 </form>
 
-<ng-template #formTemplate let-field="field">
+<ng-template 
+  #defaultLayout 
+  let-field="field" 
+  let-labelContent="labelContent" 
+  let-formContent="formContent" 
+  let-errorContent="errorContent">
+  <div class="label-content">
+    <ng-container [ngTemplateOutlet]="labelContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="form-content">
+    <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="error-content">
+    <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+</ng-template>
+
+<ng-template #labelContent let-field="field">
+  <div>
+    <label>{{ field.label}}: </label>
+  </div>
+</ng-template>
+
+<ng-template #errorContent let-field="field">
+  <ng-container *ngIf="submitted && f[field.key].errors">
+    <p style="color:red" *ngFor="let error of f[field.key].errors | keyvalue">
+      {{error.key}} - {{field.errors[error.key]}}
+    </p>
+  </ng-container> 
+</ng-template>
+
+
+<ng-template #formContent let-field="field">
   <ng-container *ngIf="!field.groups && !field.arrays">
     <ng-container  
       dynamicField

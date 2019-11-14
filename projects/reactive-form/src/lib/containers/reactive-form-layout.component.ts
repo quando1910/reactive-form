@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 
@@ -7,4 +7,8 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './reactive-form-layout.component.html'
 })
 export class ReactiveFormLayoutComponent {
+  @Input() labelContent: ElementRef<any>;
+  @Input() formContent: ElementRef<any>;
+  @Input() errorContent: ElementRef<any>;
+  @Input() field: any;
 }

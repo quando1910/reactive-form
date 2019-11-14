@@ -1,6 +1,25 @@
 <reactive-form
   [configForm]="configForm"
-  [components]="components"  
+  [components]="components"
+  [customLayout]="customLayout"
   #form="reactiveForm"
   (submit)="submit($event)">
 </reactive-form>
+
+<!-- Create a customLayout if you want to custom UI of an Input -->
+<!-- <ng-template 
+  #customLayout 
+  let-field="field" 
+  let-labelContent="labelContent" 
+  let-formContent="formContent" 
+  let-errorContent="errorContent">
+  <div class="label-content" style="color: red">
+    <ng-container [ngTemplateOutlet]="labelContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="form-content">
+    <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="error-content">
+    <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+</ng-template> -->
