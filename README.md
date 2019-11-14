@@ -44,6 +44,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 }
 ```
 
+| key                     | Type   | Required? | Description                             | Default Value | List Value           |
+|-------------------------|--------|-----------|-----------------------------------------|---------------|----------------------|
+| form.submitButton.title | string | false     | Required, Setting text of submit button | 'Submit'      | type string you want |
+|                         |        |           |                                         |               |                      |
+|                         |        |           |                                         |               |                      |
+
 ## How to custom UI
 #### Custom Layout
 The layout form have many inputs. Each `input` includes 3 parts: `labelContent`, `formContent`, `errorContent`. 
