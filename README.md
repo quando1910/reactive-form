@@ -44,11 +44,21 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 }
 ```
 
-| key                     | Type   | Required? | Description                             | Default Value | List Value           |
-|-------------------------|--------|-----------|-----------------------------------------|---------------|----------------------|
-| form.submitButton.title | string | false     | Required, Setting text of submit button | 'Submit'      | type string you want |
-|                         |        |           |                                         |               |                      |
-|                         |        |           |                                         |               |                      |
+| key                            | Type          | Required? | Description                                                                                                      | Default Value | List Value                                               |
+|--------------------------------|---------------|-----------|------------------------------------------------------------------------------------------------------------------|---------------|----------------------------------------------------------|
+| form.submitButton.title        | string        | false     | Setting text of submit button                                                                                    | 'Submit'      | type what you want                                       |
+| form.submitButton.disabledInit | boolean       | false     | Setting disable State in the beginning.                                                                          | false         | false | true                                             |
+| config.label                   | string        | false     | This key affect with label name in Form.                                                                         | null          | type what you want                                       |
+| config.key                     | string        | true      | This key is very important. It will use a property in result object                                              | null          | type what you want                                       |
+| inputType.name                 | string        | true      | This key define which kind of input.                                                                             | null          | input | file | select | textarea | checkbox | radio      |
+| inputType.type                 | string        | false     | This key define the subtype of an input                                                                          | null          | `input` - `text | number | password`                     |
+| inputType.placeholder          | string        | false     | The placeholder text for `input`, `textarea`, `select`                                                           | null          | type what you want                                       |
+| inputType.hidden               | boolean       | false     | Set it true, the input will be hidden                                                                            | false         | false | true                                             |
+| inputType.data                 | array         | false     | Provided the data for selectBox. It accepts the Array of string or object `{text: string; value: number|string}` | []            | input data follow the parttern                           |
+| disabled                       | boolean       | false     | Set it true, This key will disabled input.                                                                       | false         | false | true                                             |
+| value                          | any           | false     | Init the data in beginning.                                                                                      | null          | type what you want                                       |
+| validation                     | ValidatorFn[] | false     | Contains all validations of an input. We pass the validators of Reactive Forms.                                  | []            | Validators of Angular Reactive Form or custom validators |
+|                                |               |           |                                                                                                                  |               |                                                          |
 
 ## How to custom UI
 #### Custom Layout
