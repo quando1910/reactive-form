@@ -43,7 +43,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   }
 }
 ```
-
 | key                            | Type          | Required? | Description                                                                                                      | Default Value | List Value                                               |
 |--------------------------------|---------------|-----------|------------------------------------------------------------------------------------------------------------------|---------------|----------------------------------------------------------|
 | form.submitButton.title        | string        | false     | Setting text of submit button                                                                                    | 'Submit'      | type what you want                                       |
@@ -58,8 +57,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 | disabled                       | boolean       | false     | Set it true, This key will disabled input.                                                                       | false         | false | true                                             |
 | value                          | any           | false     | Init the data in beginning.                                                                                      | null          | type what you want                                       |
 | validation                     | ValidatorFn[] | false     | Contains all validations of an input. We pass the validators of Reactive Forms.                                  | []            | Validators of Angular Reactive Form or custom validators |
-|                                |               |           |                                                                                                                  |               |                                                          |
-
+| errors                         | Object        | false     | Base on the way `reactive forms` push errors.                                                                    | {}            | define errors follow the key of `reactive forms Errors`  |
+| groups                         | Array         | false     | When you want to add FormGroup.                                                                                  | []            |                                                          |
+| limit                          | number        | false     | For `Form Array`, it define how many form Array render on beginning                                              | 0             | number                                                   |
+| arrays                         | []            | false     | For `Form Array`, setting the input for Form Array.                                                              | []            |                                                          |
 ## How to custom UI
 #### Custom Layout
 The layout form have many inputs. Each `input` includes 3 parts: `labelContent`, `formContent`, `errorContent`. 
