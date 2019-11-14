@@ -98,6 +98,41 @@ After
 </reactive-form>
 ```
 
+#### Custom Form Input UI
+For example, you want to custom the form `input type="text"` to `new Input Component`. We need to follow some rules:
+- Create a `Custom Component` extend from our component to inheritance all ts code.
+- In this, we append `new Input Component`.
+- `New Input Component` must have two-way data binding, because we will put `[formControlName]` in it. 
+- At least, a div cover `New Input Component` with this property `[formGroup]="group"`. (the group is inheritance from our component, so you no need to define it).
+- Import it into proper module, and do not forget to put it in `entryComponents`.
+- Pass `Custom component` into <reactive-form>, we need to create an object like `{key: CustomComponent}` ( key must same with `config.key`) :
+
+```
+// in ts code, define variable
+components = {
+    file: CustomFormInputFileComponent
+  };
+
+// after, pass it in template
+<reactive-form
+  ....
+  [components]="components"
+  ....
+>
+</reactive-form>
+
+```
+## Custom Validator
+
+`import ReactiveValidator from 'reactive-form/src/lib/customValidator/validator'`
+
+| function                       | Description                |
+|--------------------------------|----------------------------|
+| requiredFileType(type: string) | validator for type of file |
+|                                |                            |
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
