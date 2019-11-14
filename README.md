@@ -15,7 +15,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   - (submit): an event when user click submit form.
 - You need to settings the config file. This file will help reactive form build their input.
 Example JSON: 
-```
 {
   `form`: { // config some common things of form
     `submitButton`: {
@@ -43,7 +42,8 @@ Example JSON:
   `arrays`: Array<any>
   }
 }
-```
+
+
 | key                            | Type          | Required? | Description                                                                                                      | Default Value | List Value                                               |
 |--------------------------------|---------------|-----------|------------------------------------------------------------------------------------------------------------------|---------------|----------------------------------------------------------|
 | form.submitButton.title        | string        | false     | Setting text of submit button                                                                                    | 'Submit'      | type what you want                                       |
