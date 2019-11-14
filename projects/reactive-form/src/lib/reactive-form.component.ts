@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Type, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Type, TemplateRef, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { FieldConfig } from './models/field-config.interface';
@@ -16,6 +16,9 @@ import { FormInputFileComponent } from './components/form-input-file/form-input-
 export class ReactiveFormComponent implements OnChanges, OnInit {
   @Input()
   configForm: any;
+
+  @Input()
+  customLayout: ElementRef<any>;
 
   // default components
   @Input()
