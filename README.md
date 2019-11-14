@@ -67,7 +67,36 @@ Example JSON:
 ## How to custom UI
 #### Custom Layout
 The layout form have many inputs. Each `input` includes 3 parts: `labelContent`, `formContent`, `errorContent`. 
-It show as default with 3 proper `<ng-content></ng-content>`.
+Use the example below with `ng-template` and pass it into the `<reactive-form>` with `customLayout` property:
+- Notice: Just change the layout inside `<ng-template>`, do not change anything in `ng-container`.
+```
+<ng-template 
+  #customLayout 
+  let-field="field" 
+  let-labelContent="labelContent" 
+  let-formContent="formContent" 
+  let-errorContent="errorContent">
+  <div class="label-content" style="color: red">
+    <ng-container [ngTemplateOutlet]="labelContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="form-content">
+    <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+  <div class="error-content">
+    <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
+</ng-template>
+```
+
+After 
+```
+<reactive-form
+  ....
+  [customLayout]="customLayout"
+  ....
+>
+</reactive-form>
+```
 
 ## Development server
 
