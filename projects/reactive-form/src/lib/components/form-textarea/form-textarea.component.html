@@ -1,0 +1,10 @@
+<div 
+  class="dynamic-field form-textarea" 
+  [formGroup]="group">
+  <textarea 
+    [rows]="config.inputType.rows" 
+    [cols]="config.inputType.cols" 
+    [attr.placeholder]="config.inputType.placeholder"
+    [formControlName]="config.key">
+  </textarea>
+</div>

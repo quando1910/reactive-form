@@ -7,6 +7,9 @@ import { FormSelectComponent } from './components/form-select/form-select.compon
 import { FormInputFileComponent } from './components/form-input-file/form-input-file.component';
 import { FileUploadComponent } from './components/form-input-file/file-upload/file-upload.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
+import { FormRadioComponent } from './components/form-radio/form-radio.component';
+import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     FileUploadComponent,
     FormInputComponent,
     FormInputFileComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    FormRadioComponent,
+    FormTextAreaComponent,
+    FormCheckboxComponent
   ],
   exports: [
     ReactiveFormComponent
@@ -23,7 +29,10 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
   entryComponents: [
     FormInputComponent,
     FormInputFileComponent,
-    FormSelectComponent
+    FormSelectComponent,
+    FormRadioComponent,
+    FormTextAreaComponent,
+    FormCheckboxComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,11 @@
+<div 
+  class="dynamic-field form-checkbox" 
+  [formGroup]="group">
+    <div *ngFor="let option of config.inputType.data">
+      <input 
+        [formControlName]="config.key" 
+        type="radio" 
+        [value]="option.value">
+        {{ option.text }}
+    </div>
+</div>

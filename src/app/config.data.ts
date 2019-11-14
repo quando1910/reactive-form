@@ -1,21 +1,5 @@
-import { Validators, FormControl } from '@angular/forms';
-import { FormConfig } from 'projects/reactive-form/src/lib/models/form-config.interface';
-
-function requiredFileType( type: string ) {
-  return function (control: FormControl) {
-    const file = control.value;
-    if (file) {
-      const extension = file.name.split('.')[1].toLowerCase();
-      if ( type.toLowerCase() !== extension.toLowerCase() ) {
-        return {
-          requiredFileType: true
-        };
-      }
-      return null;
-    }
-    return null;
-  };
-}
+import { Validators } from '@angular/forms';
+import ReactiveValidator from 'projects/reactive-form/src/lib/customValidator/validator';
 
 export default {
   form: {
@@ -112,7 +96,7 @@ export default {
       inputType: {
         name: 'file',
       },
-      validation: [Validators.required, requiredFileType('jpg')],
+      validation: [Validators.required, ReactiveValidator.requiredFileType('jpg')],
       errors: {
         required: 'file image is required',
         requiredFileType: 'Not the type of image'
@@ -167,6 +151,55 @@ export default {
       errors: {
         required: 'password is required',
         minlength: 'password is minLengh',
+      }
+    },
+    {
+      label: 'Checkbox',
+      key: 'checkbox',
+      inputType: {
+        name: 'checkbox',
+        template: {
+          content: 'ádfasdfasdf'
+        },
+        hidden: false
+      },
+      validation: [Validators.requiredTrue],
+      errors: {
+        required: 'checkbox is required',
+      }
+    },
+    {
+      label: 'Radio Btn',
+      key: 'checkRadio',
+      inputType: {
+        name: 'radio',
+        data: [
+          {text: 'abc', value: 0},
+          {text: 'zss', value: 1},
+          {text: '12zxcv', value: 2}
+        ],
+        hidden: false
+      },
+      validation: [Validators.required],
+      errors: {
+        required: 'radio is required',
+      }
+    },
+    {
+      label: 'Fill Description',
+      key: 'description',
+      inputType: {
+        name: 'textarea',
+        cols: 50,
+        rows: 4,
+        hidden: false,
+        placeholder: 'asdfasdfasfd'
+      },
+      // disabled: true,
+      // value: 123123123123132,
+      validation: [Validators.required],
+      errors: {
+        required: 'description is required',
       }
     }
   ]

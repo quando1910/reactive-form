@@ -6,6 +6,9 @@ import { FormInputComponent } from './components/form-input/form-input.component
 import { FormSelectComponent } from './components/form-select/form-select.component';
 import { Field } from './models/field.interface';
 import { FormInputFileComponent } from './components/form-input-file/form-input-file.component';
+import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
+import { FormRadioComponent } from './components/form-radio/form-radio.component';
+import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
 
 @Component({
   exportAs: 'reactiveForm',
@@ -30,7 +33,10 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   defaultComp = {
     input: FormInputComponent,
     select: FormSelectComponent,
-    file: FormInputFileComponent
+    file: FormInputFileComponent,
+    checkbox: FormCheckboxComponent,
+    radio: FormRadioComponent,
+    textarea: FormTextAreaComponent
   };
 
   config: FieldConfig[] = [];

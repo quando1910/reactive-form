@@ -1,0 +1,9 @@
+<div 
+  class="dynamic-field form-checkbox" 
+  [formGroup]="group">
+  <input
+    type="checkbox"
+    [attr.placeholder]="config.inputType.placeholder"
+    [formControlName]="config.key">
+    <span class="desc">{{config.inputType.template.content}}</span>
+</div>
