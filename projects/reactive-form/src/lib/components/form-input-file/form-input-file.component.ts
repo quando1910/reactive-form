@@ -3,6 +3,7 @@ import { FormGroup, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/for
 
 import { Field } from '../../models/field.interface';
 import { FieldConfig } from '../../models/field-config.interface';
+import { TemplateFormComponent } from '../template-form/template-form.component';
 
 @Component({
   selector: 'form-input-file',
@@ -10,7 +11,7 @@ import { FieldConfig } from '../../models/field-config.interface';
   templateUrl: './form-input-file.component.html'
 })
 
-export class FormInputFileComponent {
+export class FormInputFileComponent extends TemplateFormComponent {
   config: FieldConfig;
   group: FormGroup;
 }

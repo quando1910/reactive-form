@@ -10,17 +10,23 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
 import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
 import { FormRadioComponent } from './components/form-radio/form-radio.component';
 import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
+import { MustMatchDirective } from './components/dynamic-field/must-match.directive';
+import { TemplateFormComponent } from './components/template-form/template-form.component';
+import { DynamicPipe } from './components/dynamic-field/dynamic-pipe';
 
 @NgModule({
   declarations: [
+    DynamicPipe,
     ReactiveFormComponent,
     DynamicFieldDirective,
     FileUploadComponent,
+    MustMatchDirective,
     FormInputComponent,
     FormInputFileComponent,
     FormSelectComponent,
     FormRadioComponent,
     FormTextAreaComponent,
+    TemplateFormComponent,
     FormCheckboxComponent
   ],
   exports: [
@@ -37,6 +43,9 @@ import { FormTextAreaComponent } from './components/form-textarea/form-textarea.
   imports: [
     CommonModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    DynamicPipe
   ]
 })
 export class ReactiveFormModule {}

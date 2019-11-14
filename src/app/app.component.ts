@@ -5,6 +5,7 @@ import { Validators } from '@angular/forms';
 import { CustomFormInputFileComponent } from './custom-input-file/custom-form-input-file.component';
 import config from './config.data';
 import { FormConfig } from 'projects/reactive-form/src/lib/models/form-config.interface';
+import { PercentPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(ReactiveFormComponent) form: ReactiveFormComponent;
 
   configForm: FormConfig = config;
-
-  a: FormConfig;
-
+  myPipe = PercentPipe;
 
   // custom Components here
   components = {

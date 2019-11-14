@@ -3,6 +3,7 @@
   [formGroup]="group">
   <input
     type="checkbox"
+    [ngClass]="commonClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
     <span class="desc">{{config.inputType.template.content}}</span>

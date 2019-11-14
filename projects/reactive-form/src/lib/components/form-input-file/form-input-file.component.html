@@ -1,6 +1,6 @@
 <div 
   class="dynamic-field form-input" 
   [formGroup]="group">
-  <file-upload [formControlName]="config.key"></file-upload>
+  <file-upload [ngClass]="commonClass" [formControlName]="config.key"></file-upload>
 </div>
 

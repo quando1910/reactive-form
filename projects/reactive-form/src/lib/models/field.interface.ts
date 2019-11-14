@@ -6,4 +6,6 @@ export interface Field {
   config: FieldConfig;
   group: FormGroup;
   components?: {[type: string]: Type<Field>};
+  submitted: Boolean;
+  renderClass?: Function;
 }

@@ -2,6 +2,7 @@
   class="dynamic-field form-textarea" 
   [formGroup]="group">
   <textarea 
+    [ngClass]="commonClass"
     [rows]="config.inputType.rows" 
     [cols]="config.inputType.cols" 
     [attr.placeholder]="config.inputType.placeholder"

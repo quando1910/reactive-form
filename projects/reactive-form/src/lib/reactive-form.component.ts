@@ -9,6 +9,8 @@ import { FormInputFileComponent } from './components/form-input-file/form-input-
 import { FormCheckboxComponent } from './components/form-checkbox/form-checkbox.component';
 import { FormRadioComponent } from './components/form-radio/form-radio.component';
 import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
+import { FormConfig } from './models/form-config.interface';
+import { Pipe } from '@angular/compiler/src/core';
 
 @Component({
   exportAs: 'reactiveForm',
@@ -17,11 +19,18 @@ import { FormTextAreaComponent } from './components/form-textarea/form-textarea.
   templateUrl: './reactive-form.component.html'
 })
 export class ReactiveFormComponent implements OnChanges, OnInit {
+  a: FormConfig;
   @Input()
   configForm: any;
 
   @Input()
   customLayout: ElementRef<any>;
+
+  @Input()
+  customPipe: Pipe;
+
+  @Input()
+  customPipeArgs: any = [];
 
   // default components
   @Input()

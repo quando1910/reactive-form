@@ -3,6 +3,7 @@
   [formGroup]="group">
     <div *ngFor="let option of config.inputType.data">
       <input 
+        [ngClass]="commonClass"
         [formControlName]="config.key" 
         type="radio" 
         [value]="option.value">

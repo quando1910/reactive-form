@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { Field } from '../../models/field.interface';
 import { FieldConfig } from '../../models/field-config.interface';
+import { TemplateFormComponent } from '../template-form/template-form.component';
 
 @Component({
   selector: 'form-textarea',
@@ -10,7 +11,7 @@ import { FieldConfig } from '../../models/field-config.interface';
   templateUrl: './form-textarea.component.html'
 })
 
-export class FormTextAreaComponent implements Field {
+export class FormTextAreaComponent extends TemplateFormComponent implements Field {
   config: FieldConfig;
   group: FormGroup;
 }

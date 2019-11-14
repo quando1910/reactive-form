@@ -56,6 +56,9 @@ export interface FieldConfig {
      * For checkbox, setting the UI.
      */
     template?: any;
+
+    extraClass?: any;
+    errorClass?: any;
   };
   /**
      * Set it true, This key will disabled input.

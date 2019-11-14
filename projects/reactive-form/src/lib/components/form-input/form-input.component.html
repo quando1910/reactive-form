@@ -2,7 +2,9 @@
   class="dynamic-field form-input" 
   [formGroup]="group">
   <input
+    [name]="config.key"
     [type]="config.inputType.type"
+    [ngClass]="commonClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
 </div>

@@ -7,8 +7,10 @@ export default {
   form: {
     submitButton: {
       title: 'Submit',
-      disabledInit: false // default is false
-    }
+      disabledInit: false, // default is false
+      extraClass: 'btn'
+    },
+    matchField: ['password', 'confirmPassword'] // [['password', 'confirmPassword'],['email1', 'confirmEmail1']]
   },
   config: [
     {
@@ -18,11 +20,13 @@ export default {
         name: 'input',
         type: 'text',
         placeholder: 'Input name',
-        hidden: false
+        hidden: false,
+        extraClass: 'name-input',
+        errorClass: 'error-input'
       },
       validation: [Validators.required, Validators.minLength(4)],
       errors: {
-        required: 'name is required',
+        required: 0.5,
         minlength: 'name is minLengh',
       },
     },
@@ -67,6 +71,49 @@ export default {
         name: 'input',
         type: 'password',
         placeholder: 'Input password',
+        hidden: false,
+      },
+      validation: [Validators.required, Validators.minLength(10)],
+      errors: {
+        required: 'password is required',
+        minlength: 'password is minLengh',
+      }
+    },
+    {
+      label: 'Confirm Password',
+      key: 'confirmPassword',
+      inputType: {
+        name: 'input',
+        type: 'password',
+        placeholder: 'Input password',
+        hidden: false,
+      },
+      validation: [Validators.required, Validators.minLength(10)],
+      errors: {
+        required: 'password is required',
+        minlength: 'password is minLengh',
+      }
+    },
+    {
+      label: 'Email',
+      key: 'email1',
+      inputType: {
+        name: 'input',
+        type: 'text',
+        hidden: false,
+      },
+      validation: [Validators.required, Validators.minLength(10)],
+      errors: {
+        required: 'password is required',
+        minlength: 'password is minLengh',
+      }
+    },
+    {
+      label: 'MatchEmail',
+      key: 'confirmEmail1',
+      inputType: {
+        name: 'input',
+        type: 'text',
         hidden: false,
       },
       validation: [Validators.required, Validators.minLength(10)],

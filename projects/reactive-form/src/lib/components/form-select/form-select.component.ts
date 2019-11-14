@@ -3,13 +3,14 @@ import { FormGroup } from '@angular/forms';
 
 import { Field } from '../../models/field.interface';
 import { FieldConfig } from '../../models/field-config.interface';
+import { TemplateFormComponent } from '../template-form/template-form.component';
 
 @Component({
   selector: 'form-select',
   styleUrls: ['form-select.component.scss'],
   templateUrl: './form-select.component.html'
 })
-export class FormSelectComponent implements Field, OnInit {
+export class FormSelectComponent extends TemplateFormComponent implements Field, OnInit {
   config: FieldConfig;
   group: FormGroup;
 
