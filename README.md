@@ -14,32 +14,33 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
   - [components]: help us custom the input components. Please read the document below for clear this function.
   - (submit): an event when user click submit form.
 - You need to settings the config file. This file will help reactive form build their input.
+Example JSON: 
 ```
 {
   `form`: { // config some common things of form
     `submitButton`: {
-      `title`: string, // Required, Setting text of submit button
-      `disabledInit`: Boolean // Required, Setting disable State in the beginning.
-    }
+      `title`: string,
+      `disabledInit`: boolean
+    },
   `config`: { 
     // Required, contains all settings of Input form. Settings can create Input (with types: text, number, password), Select, File, FormGroup, FormArray .
-    `label`: string, // Optional, This key affect with label name in Form.
-    `key`: string, // Required, This key is very important. It will use a property in result object.
+    `label`: string,
+    `key`: string,
   `inputType`: {
     // Optional, This key define the way we want to input data. You can skip `inputType` in the case have children as FormGroups or FormArrays.
-    `name`: string, // Required, This key define which kind of input `input | file | select`.
-    `type`: string, // Optional, This key define the subtype of an input.  With `name`: `input`, `type` will be  `text | number | password`.
-    `placeholder`: string, // Optional, fill the placeholder if you want.
-    `hidden`: boolean; Optional, set it true, the input will be hidden.
-    `data`: Array<string | SelectBoxData> // Optional, Provided the data for selectBox. It accepts the Array of string of object `{text: string; value: number|string}`
+    `name`: string,
+    `type`: string,
+    `placeholder`: string,
+    `hidden`: boolean,
+    `data`: Array<string | SelectBoxData>
   };
-  `disabled`: boolean // Optional, Set it true, This key will disabled input.
-  `value`: any, // Optional, Init the data in beginning.
-  `validation`: ValidatorFn[], // Optional, Contains all validations of an input. We pass the validators of Reactive Forms.
-  `errors`: any, //Optional, Base on the way `reactive forms` push errors, we need define errors follow the key of `reactive forms Errors` .
-  `groups`: Array<FieldConfig>, //Optional, If you want to add  FormGroup, use it.
-  `limit`: number, // Optional, use for Form Array, it define how many form Array render on beginning
-  `arrays`: Array<any> // Optional, Setting the input for Form Array.
+  `disabled`: boolean,
+  `value`: any,
+  `validation`: ValidatorFn[],
+  `errors`: any,
+  `groups`: Array<FieldConfig>,
+  `limit`: number,
+  `arrays`: Array<any>
   }
 }
 ```
