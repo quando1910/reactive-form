@@ -1,10 +1,8 @@
 <reactive-form
   [configForm]="configForm"
   [components]="components"
-  [customPipe]="myPipe"
-  [customLayout]="customLayout"
   #form="reactiveForm"
-  (submit)="submit($event)">
+  (submitEmitter)="onSubmit($event)">
 </reactive-form>
 
 <!-- Create a customLayout if you want to custom UI of an Input -->

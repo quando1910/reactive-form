@@ -11,6 +11,7 @@ import { FormRadioComponent } from './components/form-radio/form-radio.component
 import { FormTextAreaComponent } from './components/form-textarea/form-textarea.component';
 import { FormConfig } from './models/form-config.interface';
 import { Pipe } from '@angular/compiler/src/core';
+import { DefaultReactiveForm } from './reactive-form.class';
 
 @Component({
   exportAs: 'reactiveForm',
@@ -20,8 +21,11 @@ import { Pipe } from '@angular/compiler/src/core';
 })
 export class ReactiveFormComponent implements OnChanges, OnInit {
   a: FormConfig;
+
   @Input()
   configForm: any;
+
+  inheritConfig: any;
 
   @Input()
   customLayout: ElementRef<any>;
@@ -37,7 +41,7 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   components: {[type: string]: Type<Field>};
 
   @Output()
-  submit: EventEmitter<any> = new EventEmitter<any>();
+  submitEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   defaultComp = {
     input: FormInputComponent,
@@ -52,6 +56,7 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   form: FormGroup;
   submitted: Boolean;
   componentHandler: {[type: string]: Type<Field>};
+  preventClick: boolean;
 
   get controls() { return this.config; }
   get changes() { return this.form.valueChanges; }
@@ -65,7 +70,13 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
     this.componentHandler = {...this.defaultComp, ...this.components};
     this.config = this.configForm.config;
     this.form = this.createGroup();
-    // console.log(this.form);
+    this.inheritConfig = new DefaultReactiveForm(
+      this.configForm.form.submitButton.title,
+      this.configForm.form.submitButton.disabledInit,
+      this.configForm.form.submitButton.preventClick,
+      this.configForm.form.submitButton.extraClass,
+      this.configForm.form.matchField,
+      this.configForm.config);
   }
 
   ngOnChanges() {
@@ -119,10 +130,26 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   }
 
   handleSubmit(event: Event) {
+    if (this.inheritConfig.form.submitButton.preventClick) {
+      if (!this.preventClick) {
+        this.submitEvent();
+        this.preventClick = true;
+        this.preventConsecutiveClick();
+      }
+    } else {
+      this.submitEvent();
+    }
+  }
+
+  submitEvent() {
     this.submitted = true;
     event.preventDefault();
     event.stopPropagation();
-    this.submit.emit(this.value);
+    this.submitEmitter.emit(this.value);
+  }
+
+  preventConsecutiveClick() {
+    setTimeout(() => (this.preventClick = false), 3000);
   }
 
   setDisabled(name: string, disable: boolean) {

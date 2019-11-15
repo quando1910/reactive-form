@@ -6,11 +6,10 @@ const validators = new ReactiveFormService();
 export default {
   form: {
     submitButton: {
-      title: 'Submit',
-      disabledInit: false, // default is false
-      extraClass: 'btn'
+      extraClass: 'btn',
+      // preventClick: false
     },
-    matchField: ['password', 'confirmPassword'] // [['password', 'confirmPassword'],['email1', 'confirmEmail1']]
+    matchField: ['password', 'confirmPassword'], // [['password', 'confirmPassword'],['email1', 'confirmEmail1']]
   },
   config: [
     {

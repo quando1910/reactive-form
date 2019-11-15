@@ -3,7 +3,7 @@
   [formGroup]="group">
     <div *ngFor="let option of config.inputType.data">
       <input 
-        [ngClass]="commonClass"
+        [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
         [formControlName]="config.key" 
         type="radio" 
         [value]="option.value">

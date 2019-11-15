@@ -3,7 +3,7 @@
   [formGroup]="group">
   <input
     type="checkbox"
-    [ngClass]="commonClass"
+    [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
     <span class="desc">{{config.inputType.template.content}}</span>

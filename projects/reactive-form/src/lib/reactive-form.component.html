@@ -1,7 +1,7 @@
 <form
   class="dynamic-form"
   [formGroup]="form"
-  [mustMatch]="configForm.form.matchField"
+  [mustMatch]="inheritConfig.form.matchField"
   (submit)="handleSubmit($event)">
   <ng-container *ngFor="let field of config">
     <ng-container
@@ -11,9 +11,10 @@
   </ng-container>
   <button
     class="reactive-btn-submit"
-    [ngClass]="configForm.form.submitButton.extraClass"
+    [ngClass]="inheritConfig.form.submitButton.extraClass"
+    [disabled]="preventClick"
     type="submit">
-    {{ configForm.form.submitButton.title }}
+    {{ inheritConfig.form.submitButton.title }}
   </button>
 </form>
 

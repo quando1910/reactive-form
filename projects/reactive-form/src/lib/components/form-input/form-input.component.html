@@ -4,7 +4,7 @@
   <input
     [name]="config.key"
     [type]="config.inputType.type"
-    [ngClass]="commonClass"
+    [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
 </div>

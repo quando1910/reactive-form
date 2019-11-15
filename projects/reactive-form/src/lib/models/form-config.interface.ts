@@ -8,8 +8,10 @@ export interface FormConfig {
      */
   form: {
     submitButton: {
-      title: string,
-      disabledInit: Boolean;
+      title?: string,
+      disabledInit?: Boolean;
+      extraClass?: string;
+      preventClick?: Boolean;
     },
     /**
      * Setting retype Field. Input Value is an array of 2 config.key. We also can input multiple array.

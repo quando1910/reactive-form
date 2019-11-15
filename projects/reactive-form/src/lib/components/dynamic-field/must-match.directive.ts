@@ -35,7 +35,7 @@ export class MustMatchDirective implements Validator {
   @Input() mustMatch: string[] = [];
 
   validate(formGroup: FormGroup): ValidationErrors {
-    if (this.mustMatch.length > 0) {
+    if (this.mustMatch && this.mustMatch.length > 0) {
       if (Array.isArray(this.mustMatch[0])) {
         // many mustMatch
         this.mustMatch.forEach(x => {

@@ -2,7 +2,7 @@
   class="dynamic-field form-textarea" 
   [formGroup]="group">
   <textarea 
-    [ngClass]="commonClass"
+    [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [rows]="config.inputType.rows" 
     [cols]="config.inputType.cols" 
     [attr.placeholder]="config.inputType.placeholder"

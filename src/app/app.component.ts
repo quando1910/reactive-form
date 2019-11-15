@@ -40,7 +40,7 @@ export class AppComponent implements AfterViewInit {
     this.cd.detectChanges();
   }
 
-  submit(value: {[name: string]: any}) {
-    console.log(value);
+  onSubmit(value: {[name: string]: any}) {
+    console.log('app', value);
   }
 }
