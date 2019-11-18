@@ -3,19 +3,25 @@
   [formGroup]="form"
   [mustMatch]="inheritConfig.form.matchField"
   (submit)="handleSubmit($event)">
+  <ng-content select="[topForm]"></ng-content>
   <ng-container *ngFor="let field of config">
-    <ng-container
-      [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
-      [ngTemplateOutletContext]="{field: field, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
-    </ng-container>
+    <div class="reactive-form-field">
+      <ng-container
+        [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
+        [ngTemplateOutletContext]="{field: field, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+      </ng-container>
+    </div>
   </ng-container>
+  <ng-content select="[middleForm]"></ng-content>
   <button
+    *ngIf="!inheritConfig.form.submitButton.hidden"
     class="reactive-btn-submit"
     [ngClass]="inheritConfig.form.submitButton.extraClass"
     [disabled]="preventClick"
     type="submit">
     {{ inheritConfig.form.submitButton.title }}
   </button>
+  <ng-content select="[bottomForm]"></ng-content>
 </form>
 
 <ng-template 
@@ -30,14 +36,23 @@
   <div class="form-content">
     <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
   </div>
+  <div class="desc-content">
+    <ng-container [ngTemplateOutlet]="descContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+  </div>
   <div class="error-content">
     <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
   </div>
 </ng-template>
 
 <ng-template #labelContent let-field="field">
-  <div>
-    <label>{{ field.label}}: </label>
+  <div *ngIf="field.label">
+    <label>{{field.label}}: </label>
+  </div>
+</ng-template>
+
+<ng-template #descContent let-field="field">
+  <div *ngIf="field.description">
+    <span>{{field.description}}</span>
   </div>
 </ng-template>
 

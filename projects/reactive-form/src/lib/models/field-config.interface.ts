@@ -59,6 +59,7 @@ export interface FieldConfig {
 
     extraClass?: any;
     errorClass?: any;
+    description?: any;
   };
   /**
      * Set it true, This key will disabled input.

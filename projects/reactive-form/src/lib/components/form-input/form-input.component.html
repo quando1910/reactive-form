@@ -1,5 +1,6 @@
 <div 
-  class="dynamic-field form-input" 
+  class="dynamic-field" 
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
   <input
     [name]="config.key"
@@ -7,4 +8,5 @@
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
+    <span class="desc">{{config.inputType.description}}</span>
 </div>

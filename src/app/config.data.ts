@@ -7,6 +7,7 @@ export default {
   form: {
     submitButton: {
       extraClass: 'btn',
+      hidden: true
       // preventClick: false
     },
     matchField: ['password', 'confirmPassword'], // [['password', 'confirmPassword'],['email1', 'confirmEmail1']]
@@ -28,6 +29,7 @@ export default {
         required: 0.5,
         minlength: 'name is minLengh',
       },
+      description: 'asjflajslfjaslkfjalskdjflasjfdl'
     },
     {
       label: 'Phone',

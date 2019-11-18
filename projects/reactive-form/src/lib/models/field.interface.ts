@@ -8,4 +8,5 @@ export interface Field {
   components?: {[type: string]: Type<Field>};
   submitted: Boolean;
   renderClass?: Function;
+  renderClassContainer?: Function;
 }

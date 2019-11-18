@@ -15,7 +15,12 @@ export class FormRadioComponent extends TemplateFormComponent implements Field, 
   config: FieldConfig;
   group: FormGroup;
 
+  constructor() {
+    super();
+  }
+
   ngOnInit() {
+    super.ngOnInit();
     this.config.inputType.data = this.config.inputType.data.map(x => typeof x === 'string' ? {text: x, value: x} : x);
   }
 }

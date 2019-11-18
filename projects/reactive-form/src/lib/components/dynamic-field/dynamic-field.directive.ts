@@ -34,6 +34,7 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
       this.component.instance.group = this.group;
       this.component.instance.submitted = this.submitted;
       this.component.instance.renderClass();
+      this.component.instance.renderClassContainer();
     }
   }
 

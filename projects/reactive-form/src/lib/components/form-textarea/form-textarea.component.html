@@ -1,5 +1,6 @@
 <div 
-  class="dynamic-field form-textarea" 
+  class="dynamic-field form-textarea"
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
   <textarea 
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
@@ -8,4 +9,5 @@
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
   </textarea>
+  <span class="desc">{{config.inputType.description}}</span>
 </div>

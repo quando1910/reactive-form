@@ -1,5 +1,6 @@
 <div 
-  class="dynamic-field form-checkbox" 
+  class="dynamic-field" 
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
   <input
     type="checkbox"

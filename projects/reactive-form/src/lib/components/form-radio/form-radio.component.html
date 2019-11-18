@@ -1,5 +1,6 @@
 <div 
-  class="dynamic-field form-checkbox" 
+  class="dynamic-field" 
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
     <div *ngFor="let option of config.inputType.data">
       <input 
@@ -9,4 +10,5 @@
         [value]="option.value">
         {{ option.text }}
     </div>
+    <span class="desc">{{config.inputType.description}}</span>
 </div>

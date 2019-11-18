@@ -1,12 +1,14 @@
 <div 
-  class="dynamic-field form-select"
+  class="dynamic-field"
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer" 
   [formGroup]="group">
   <select 
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass" 
     [formControlName]="config.key">
     <option value="">{{ config.inputType.placeholder }}</option>
     <option *ngFor="let option of config.inputType.data" [value]="option.value">
-      {{ option.text }} - {{ option.value }}
+      {{ option.text }}
     </option>
   </select>
+  <span class="desc">{{config.inputType.description}}</span>
 </div>

@@ -1,6 +1,8 @@
 <div 
-  class="dynamic-field form-input" 
+  class="dynamic-field" 
+  [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
   <file-upload [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass" [formControlName]="config.key"></file-upload>
+  <span class="desc">{{config.inputType.description}}</span>
 </div>
 

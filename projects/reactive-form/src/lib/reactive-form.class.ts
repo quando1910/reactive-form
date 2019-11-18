@@ -4,6 +4,7 @@ export class DefaultReactiveForm {
     formSubmitButtonDisabledInit = false,
     formSubmitButtonPreventClick = true,
     formSubmitButtonExtraClass = '',
+    formSubmitHidden = false,
     formMatchField = [],
     config = [] ) {
     return {
@@ -13,6 +14,7 @@ export class DefaultReactiveForm {
           disabledInit: formSubmitButtonDisabledInit,
           preventClick: formSubmitButtonPreventClick,
           extraClass: formSubmitButtonExtraClass,
+          hidden: formSubmitHidden
         },
         matchField: formMatchField
       },

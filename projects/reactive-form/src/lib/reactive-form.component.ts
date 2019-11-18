@@ -75,6 +75,7 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
       this.configForm.form.submitButton.disabledInit,
       this.configForm.form.submitButton.preventClick,
       this.configForm.form.submitButton.extraClass,
+      this.configForm.form.submitButton.hidden,
       this.configForm.form.matchField,
       this.configForm.config);
   }

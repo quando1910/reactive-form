@@ -12,6 +12,7 @@ export interface FormConfig {
       disabledInit?: Boolean;
       extraClass?: string;
       preventClick?: Boolean;
+      hidden?: Boolean;
     },
     /**
      * Setting retype Field. Input Value is an array of 2 config.key. We also can input multiple array.
