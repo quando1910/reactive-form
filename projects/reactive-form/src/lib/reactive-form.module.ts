@@ -13,6 +13,7 @@ import { FormTextAreaComponent } from './components/form-textarea/form-textarea.
 import { MustMatchDirective } from './components/dynamic-field/must-match.directive';
 import { TemplateFormComponent } from './components/template-form/template-form.component';
 import { DynamicPipe } from './components/dynamic-field/dynamic-pipe';
+import { ReactiveFormService } from './reactive-form.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,14 @@ import { DynamicPipe } from './components/dynamic-field/dynamic-pipe';
     FormCheckboxComponent
   ],
   exports: [
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    FormInputComponent,
+    FormInputFileComponent,
+    FormSelectComponent,
+    FormRadioComponent,
+    FormTextAreaComponent,
+    FormCheckboxComponent,
+    TemplateFormComponent,
   ],
   entryComponents: [
     FormInputComponent,
@@ -45,7 +53,8 @@ import { DynamicPipe } from './components/dynamic-field/dynamic-pipe';
     ReactiveFormsModule,
   ],
   providers: [
-    DynamicPipe
+    DynamicPipe,
+    ReactiveFormService
   ]
 })
 export class ReactiveFormModule {}

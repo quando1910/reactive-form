@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Field } from '../../models/field.interface';
@@ -26,9 +26,18 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef
-  ) {}
+  ) {
+  }
 
-  ngOnChanges() {
+  ngOnChanges(simple: SimpleChanges) {
+    if (simple.components && simple.components.previousValue) {
+      const difference = Object.keys(simple.components.currentValue)
+        .filter(k => simple.components.currentValue[k] !== simple.components.previousValue[k]);
+      if (difference.includes(this.config.inputType.name)) {
+        this.container.clear();
+        this.buildComp();
+      }
+    }
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
@@ -46,10 +55,14 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
-    const component = this.resolver.resolveComponentFactory<Field>(this.components[this.config.inputType.name]);
-    this.component = this.container.createComponent(component);
+    this.buildComp();
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
     this.component.instance.submitted = this.submitted;
+  }
+
+  buildComp() {
+    const component = this.resolver.resolveComponentFactory<Field>(this.components[this.config.inputType.name]);
+    this.component = this.container.createComponent(component);
   }
 }

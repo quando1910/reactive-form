@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Type, TemplateRef, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, Type, TemplateRef, ElementRef, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
 import { FieldConfig } from './models/field-config.interface';
@@ -12,6 +12,9 @@ import { FormTextAreaComponent } from './components/form-textarea/form-textarea.
 import { FormConfig } from './models/form-config.interface';
 import { Pipe } from '@angular/compiler/src/core';
 import { DefaultReactiveForm } from './reactive-form.class';
+import { takeUntil } from 'rxjs/operators';
+import { ReactiveFormService } from './reactive-form.service';
+import { Subject } from 'rxjs';
 
 @Component({
   exportAs: 'reactiveForm',
@@ -21,6 +24,8 @@ import { DefaultReactiveForm } from './reactive-form.class';
 })
 export class ReactiveFormComponent implements OnChanges, OnInit {
   a: FormConfig;
+
+  private unsubscribe$ = new Subject<void>();
 
   @Input()
   configForm: any;
@@ -37,7 +42,6 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   customPipeArgs: any = [];
 
   // default components
-  @Input()
   components: {[type: string]: Type<Field>};
 
   @Output()
@@ -57,19 +61,28 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   submitted: Boolean;
   componentHandler: {[type: string]: Type<Field>};
   preventClick: boolean;
+  group: FormGroup;
+  cacheValue: any;
 
   get controls() { return this.config; }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
-  get value() { return this.form.value; }
+  get value() {
+    const value = this.form.value;
+    Object.keys(value).forEach(k => {
+      value[k] = typeof value[k] === 'string' ? value[k].trim() : value[k];
+    });
+    return value;
+  }
   get f() { return this.form.controls; }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private reactiveService: ReactiveFormService,
+    private cd: ChangeDetectorRef,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.componentHandler = {...this.defaultComp, ...this.components};
     this.config = this.configForm.config;
-    this.form = this.createGroup();
     this.inheritConfig = new DefaultReactiveForm(
       this.configForm.form.submitButton.title,
       this.configForm.form.submitButton.disabledInit,
@@ -77,38 +90,123 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
       this.configForm.form.submitButton.extraClass,
       this.configForm.form.submitButton.hidden,
       this.configForm.form.matchField,
+      this.configForm.form.requiredSymbol,
       this.configForm.config);
+    this.form = this.createGroup();
+    this.reactiveService.components$.pipe(takeUntil(this.unsubscribe$)).subscribe(comp => {
+      if (comp) {
+        this.components = comp;
+        this.componentHandler = {...this.defaultComp, ...this.components};
+      } else {
+        this.componentHandler = {...this.defaultComp };
+      }
+    });
   }
 
-  ngOnChanges() {
+  calculateForm(configForm) {
+    this.cacheValue = this.form.value;
+    this.config = configForm.config;
+    this.inheritConfig.config = this.config;
+  }
+
+  reRenderConfig(configForm, previousConfig = null) {
+   this.calculateForm(configForm);
+    if (!previousConfig) {
+      this.form = this.createGroup();
+    } else {
+      this.removeController(previousConfig, this.form);
+    }
+    this.form.patchValue(this.cacheValue || {});
+  }
+
+  addController(configForm, previousConfig = null) {
+   this.calculateForm(configForm);
+    if (previousConfig) {
+      this.removeController(previousConfig, this.form);
+    }
+    this.form = this.updateGroup();
+    this.form.patchValue(this.cacheValue || {});
+  }
+
+
+  ngOnChanges(simple: SimpleChanges) {
     if (this.form) {
-      const controls = Object.keys(this.form.controls);
-      const configControls = this.controls.map((item) => item.key);
+      if (simple.configForm.currentValue) {
+        this.calculateForm(simple.configForm.currentValue);
+      }
+    //   this.cacheValue = this.form.value;
+    //   const controls = Object.keys(this.form.controls);
+    //   const configControls = this.controls.map((item) => item.key);
+    //   console.log(controls, configControls);
+    //   controls
+    //     .filter((control) => !configControls.includes(control))
+    //     .forEach((control) => this.form.removeControl(control));
 
-      controls
-        .filter((control) => !configControls.includes(control))
-        .forEach((control) => this.form.removeControl(control));
-
-      configControls
-        .filter((control) => !controls.includes(control))
-        .forEach((name) => {
-          const config = this.config.find((control) => control.key === name);
-          this.form.addControl(name, this.createControl(config));
-        });
-
+    //   configControls
+    //     .filter((control) => !controls.includes(control))
+    //     .forEach((name) => {
+    //       const config = this.config.find((control) => control.key === name);
+    //       this.form.addControl(name, this.createControl(config));
+    //     });
     }
   }
 
   createGroup() {
-    const group = this.fb.group({});
-    this.controls.forEach(control => group.addControl(control.key, this.createControl(control)));
-    return group;
+    this.group = this.fb.group({});
+    this.groupRecursive(this.controls);
+    return this.group;
+  }
+
+  updateGroup() {
+    this.groupRecursive(this.controls);
+    return this.group;
+  }
+
+  groupRecursive(data) {
+    data.forEach(control => {
+      if (control.key) {
+        if (!this.group.controls[control.key]) {
+          this.group.addControl(control.key, this.createControl(control));
+        } else {
+          const group = this.group.controls[control.key];
+          if (group['controls']) {
+            const groupControl: any = group['controls'];
+            const a = this.createControl(control) as FormGroup;
+            Object.keys(groupControl).forEach(x => a.addControl(x, groupControl[x]));
+            this.group.removeControl(control.key);
+            this.group.addControl(control.key, a);
+          }
+        }
+      } else {
+        this.groupRecursive(control.groups);
+      }
+    });
+  }
+
+
+  /*
+    This function remove the control of form with the format of config, passing data is the array of field
+    you want to remove Control.
+  */
+  removeController(data, form, key = null) {
+    data.forEach((item: any) => {
+      const record: any = item.key ? form.get(item.key) : form;
+      if (item.groups) {
+        this.removeController(item.groups, record, item.key ? item.key : key);
+      } else if (item.arrays) {
+      } else {
+        form.removeControl(item.key);
+        if ((key && !form.controls) || (key && !Object.keys(form.controls).length)) {
+          form._parent.removeControl(key);
+        }
+      }
+    });
   }
 
   createControl(config: FieldConfig) {
-    if (config.groups && config.groups.length > 0) {
+    if (config.groups && config.groups.length >= 0) {
       return this.createFormGroup(config.groups);
-    } else if (config.arrays && config.arrays.length > 0) {
+    } else if (config.arrays && config.arrays.length >= 0) {
       return this.createFormArray(this.createFormGroup(config.arrays), config.limit);
     } else {
       const { disabled, validation, value } = config;

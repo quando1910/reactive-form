@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef, HostListener, ElementRef } from '@angular/core';
-
 import { FormInputFileComponent } from 'projects/reactive-form/src/lib/components/form-input-file/form-input-file.component';
+
 
 @Component({
   selector: 'custom-form-input-file',

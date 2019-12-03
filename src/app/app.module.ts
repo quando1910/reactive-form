@@ -7,13 +7,14 @@ import { CustomFileUploadComponent } from './custom-input-file/custom-file-uploa
 import { CustomFormInputFileComponent } from './custom-input-file/custom-form-input-file.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PercentPipe } from '@angular/common';
+import { FormInputFileComponent } from '@theflames/reactive-form/lib/components/form-input-file/form-input-file.component';
 // import { ReactiveFormModule } from '@theflames/reactive-form';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomFormInputFileComponent,
-    CustomFileUploadComponent
+    CustomFileUploadComponent,
   ],
   imports: [
     BrowserModule,

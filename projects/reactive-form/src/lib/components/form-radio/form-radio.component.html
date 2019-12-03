@@ -3,12 +3,13 @@
   [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
     <div *ngFor="let option of config.inputType.data">
-      <input 
+      <input
+        [id]="option.text"
         [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
         [formControlName]="config.key" 
         type="radio" 
         [value]="option.value">
-        {{ option.text }}
+        <label class="label-inline" [for]="option.text">{{ option.text }}</label>
     </div>
     <span class="desc">{{config.inputType.description}}</span>
 </div>

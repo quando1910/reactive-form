@@ -5,15 +5,24 @@ export interface SelectBoxData {
   value: number | string;
 }
 
+export interface LabelSetting {
+   text: string;
+   required: boolean;
+   extraClass: string;
+   extraClassRequired: string;
+ }
+
 export interface FieldConfig {
   /**
      * This key affect with label name in Form.
      */
-  label?: string;
+  label?: string | LabelSetting;
   /**
      * This key is very important. It will use a property in result object.
      */
-  key: string;
+  key?: string;
+  required?: boolean;
+  requiredSymbol?: string;
   /**
      * This key define the way we want to input data.
      */

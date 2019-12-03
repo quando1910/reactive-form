@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { Field } from './models/field.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReactiveFormService {
+
+  components$ = new BehaviorSubject<any>(null);
 
   constructor() { }
 
@@ -22,5 +26,9 @@ export class ReactiveFormService {
       }
       return null;
     };
+  }
+
+  setCustomComponents(value) {
+    this.components$.next(value);
   }
 }

@@ -7,250 +7,93 @@ export default {
   form: {
     submitButton: {
       extraClass: 'btn',
-      hidden: true
+      // hidden: true
       // preventClick: false
     },
+    requiredSymbol: '*',
     matchField: ['password', 'confirmPassword'], // [['password', 'confirmPassword'],['email1', 'confirmEmail1']]
   },
   config: [
     {
-      label: 'Name',
+      label: 'name',
       key: 'name',
       inputType: {
-        name: 'input',
         type: 'text',
-        placeholder: 'Input name',
-        hidden: false,
-        extraClass: 'name-input',
-        errorClass: 'error-input'
+        name: 'input'
       },
-      validation: [Validators.required, Validators.minLength(4)],
+      validation: [],
       errors: {
-        required: 0.5,
-        minlength: 'name is minLengh',
       },
-      description: 'asjflajslfjaslkfjalskdjflasjfdl'
     },
     {
-      label: 'Phone',
+      label: 'phone',
       key: 'phone',
-      validation: [Validators.required, Validators.minLength(10), Validators.pattern(/123232/)],
-      errors: {
-        required: 'phone is required',
-        minlength: 'phone is minLengh',
-        pattern: 'phone is not right pattern'
-      },
       groups: [
         {
-          // label: 'Name',
-          key: 'code',
+          label: 'country_code',
+          key: 'country_code',
           inputType: {
-            name: 'input',
-            type: 'number',
-            placeholder: 'code',
-            hidden: false
-          },
-          // validation: [Validators.required, Validators.minLength(4)],
-        },
-        {
-          // label: 'Name',
-          key: 'phone',
-          inputType: {
-            name: 'input',
-            type: 'number',
-            placeholder: 'Phone number',
-            hidden: false
-          },
-          // validation: [Validators.required, Validators.minLength(4)],
-        }
-      ]
-    },
-    {
-      label: 'Password',
-      key: 'password',
-      inputType: {
-        name: 'input',
-        type: 'password',
-        placeholder: 'Input password',
-        hidden: false,
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'Confirm Password',
-      key: 'confirmPassword',
-      inputType: {
-        name: 'input',
-        type: 'password',
-        placeholder: 'Input password',
-        hidden: false,
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'Email',
-      key: 'email1',
-      inputType: {
-        name: 'input',
-        type: 'text',
-        hidden: false,
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'MatchEmail',
-      key: 'confirmEmail1',
-      inputType: {
-        name: 'input',
-        type: 'text',
-        hidden: false,
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'School',
-      key: 'school',
-      inputType: {
-        name: 'select',
-        placeholder: 'Select first',
-        hidden: false,
-        data: [
-          'Pizza', 'Hot Dogs', 'Knakworstje', 'Coffee'
-        ]
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'Upload File',
-      key: 'image',
-      inputType: {
-        name: 'file',
-      },
-      validation: [Validators.required, validators.requiredFileType('jpg')],
-      errors: {
-        required: 'file image is required',
-        requiredFileType: 'Not the type of image'
-      }
-    },
-    {
-      label: 'SchoolKey',
-      key: 'school',
-      inputType: {
-        name: 'select',
-        placeholder: 'Select first',
-        hidden: false,
-        data: [
-          {text: 'abc', value: 0},
-          {text: 'zss', value: 1},
-          {text: '12zxcv', value: 2}
-        ]
-      },
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'Array',
-      key: 'items',
-      limit: 2,
-      arrays: [
-        {
-          label: 'Name Item',
-          key: 'name',
-          inputType: {
-            name: 'input',
             type: 'text',
-            placeholder: 'code',
-            hidden: false
+            name: 'input'
+          },
+          validation: [],
+          errors: {
           },
         },
         {
-          label: 'Type Item',
-          key: 'type',
+          label: 'phone_num',
+          key: 'phone_num',
           inputType: {
-            name: 'input',
-            type: 'number',
-            placeholder: 'Phone number',
-            hidden: false
+            type: 'text',
+            name: 'input'
           },
-        }
-      ],
-      validation: [Validators.required, Validators.minLength(10)],
-      errors: {
-        required: 'password is required',
-        minlength: 'password is minLengh',
-      }
-    },
-    {
-      label: 'Checkbox',
-      key: 'checkbox',
-      inputType: {
-        name: 'checkbox',
-        template: {
-          content: 'ádfasdfasdf'
+          validation: [],
+          errors: {
+          },
         },
-        hidden: false
-      },
-      validation: [Validators.requiredTrue],
+      ],
+      validation: [],
       errors: {
-        required: 'checkbox is required',
-      }
-    },
-    {
-      label: 'Radio Btn',
-      key: 'checkRadio',
-      inputType: {
-        name: 'radio',
-        data: [
-          {text: 'abc', value: 0},
-          {text: 'zss', value: 1},
-          {text: '12zxcv', value: 2}
+      },
+   },
+   {
+    label: 'level',
+    groups: [
+      {
+        label: 'level1',
+        key: 'level1',
+        groups: [
+          {
+            label: 'level1_1',
+            key: 'level1_1',
+            inputType: {
+              type: 'text',
+              name: 'input'
+            },
+            validation: [],
+            errors: {
+            },
+          },
         ],
-        hidden: false
+        validation: [],
+        errors: {
+        },
       },
-      validation: [Validators.required],
-      errors: {
-        required: 'radio is required',
-      }
+      {
+        label: 'level2',
+        key: 'level2',
+        inputType: {
+          type: 'text',
+          name: 'input'
+        },
+        validation: [],
+        errors: {
+        },
+      },
+    ],
+    validation: [],
+    errors: {
     },
-    {
-      label: 'Fill Description',
-      key: 'description',
-      inputType: {
-        name: 'textarea',
-        cols: 50,
-        rows: 4,
-        hidden: false,
-        placeholder: 'asdfasdfasfd'
-      },
-      // disabled: true,
-      // value: 123123123123132,
-      validation: [Validators.required],
-      errors: {
-        required: 'description is required',
-      }
-    }
+ },
   ]
 };

@@ -1,14 +1,15 @@
 <form
+  *ngIf="componentHandler && inheritConfig"
   class="dynamic-form"
   [formGroup]="form"
   [mustMatch]="inheritConfig.form.matchField"
   (submit)="handleSubmit($event)">
   <ng-content select="[topForm]"></ng-content>
-  <ng-container *ngFor="let field of config">
+  <ng-container *ngFor="let field of inheritConfig.config">
     <div class="reactive-form-field">
       <ng-container
         [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
-        [ngTemplateOutletContext]="{field: field, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+        [ngTemplateOutletContext]="{field: field, config: config, form: form, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
       </ng-container>
     </div>
   </ng-container>
@@ -26,28 +27,34 @@
 
 <ng-template 
   #defaultLayout 
-  let-field="field" 
+  let-field="field"
+  let-config="config"
+  let-form="form"
   let-labelContent="labelContent" 
   let-formContent="formContent" 
   let-errorContent="errorContent">
-  <div class="label-content">
     <ng-container [ngTemplateOutlet]="labelContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
-  </div>
-  <div class="form-content">
-    <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
-  </div>
+    <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field, config: config, form: form, labelContent: labelContent, formContent: formContent, errorContent: errorContent }"></ng-container> 
   <div class="desc-content">
     <ng-container [ngTemplateOutlet]="descContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
   </div>
   <div class="error-content">
-    <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
+    <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field, form: form }"></ng-container> 
   </div>
 </ng-template>
 
 <ng-template #labelContent let-field="field">
-  <div *ngIf="field.label">
-    <label>{{field.label}}: </label>
-  </div>
+  <ng-container *ngIf="field.label">
+    <ng-container *ngIf="field.label.text; else simpleLabel">
+      <div [ngClass]="field.label.extraClass">
+        <label>{{field.label.text}} </label>
+        <label *ngIf="field.label?.required" class="reactive-label-required" [ngClass]="field.label.extraClassRequired">{{inheritConfig.form.requiredSymbol}}</label>
+      </div>
+    </ng-container>
+    <ng-template #simpleLabel>
+      <label>{{field.label}}</label>
+    </ng-template>
+  </ng-container>
 </ng-template>
 
 <ng-template #descContent let-field="field">
@@ -56,9 +63,9 @@
   </div>
 </ng-template>
 
-<ng-template #errorContent let-field="field">
-  <ng-container *ngIf="submitted && f[field.key].errors">
-    <p style="color:red" *ngFor="let error of f[field.key].errors | keyvalue">
+<ng-template #errorContent let-field="field" let-form="form">
+  <ng-container *ngIf="submitted && form.controls[field.key] && form.controls[field.key].errors">
+    <p style="color:red" *ngFor="let error of form.controls[field.key].errors | keyvalue">
       <ng-container *ngIf="customPipe; else noPipe">
         {{ field.errors[error.key] | dynamicPipe: customPipe: customPipeArgs }}
       </ng-container>
@@ -70,38 +77,54 @@
 </ng-template>
 
 
-<ng-template #formContent let-field="field">
-  <ng-container *ngIf="!field.groups && !field.arrays">
-    <ng-container  
-      dynamicField
-      [submitted]="submitted"
-      [components]="componentHandler"
-      [config]="field"
-      [group]="form">
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="field.groups">
-    <ng-container *ngFor="let group of field.groups">
+<ng-template 
+  #formContent 
+  let-field="field" 
+  let-config="config"
+  let-form="form"
+  let-labelContent="labelContent" 
+  let-formContent="formContent" 
+  let-errorContent="errorContent">
+  <div class="form-content">
+    <ng-container *ngIf="!field.groups && !field.arrays">
       <ng-container  
         dynamicField
-        [components]="componentHandler"
         [submitted]="submitted"
-        [config]="group"
-        [group]="form.controls[field.key]">
+        [components]="componentHandler"
+        [config]="field"
+        [group]="form">
       </ng-container>
     </ng-container>
-  </ng-container>
-  <ng-container *ngIf="field.arrays && form.controls[field.key]">
-    <ng-container *ngFor="let ui of form.controls[field.key]['controls']">
-      <ng-container *ngFor="let group of field.arrays">
-        <ng-container  
-          dynamicField
-          [submitted]="submitted"
-          [components]="componentHandler"
-          [config]="group"
-          [group]="ui">
+    <ng-container *ngIf="field.groups">
+      <ng-container *ngIf="field.key; else noKey">
+        <ng-container *ngFor="let group of field.groups">
+          <ng-container
+            [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
+            [ngTemplateOutletContext]="{field: group, config: config, form: form.controls[field.key], labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-template #noKey>
+        <ng-container *ngFor="let group of field.groups">
+          <ng-container
+            [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
+            [ngTemplateOutletContext]="{field: group, config: config, form: form, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+          </ng-container>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="field.arrays && form.controls[field.key]">
+      <ng-container *ngFor="let ui of form.controls[field.key]['controls']">
+        <ng-container *ngFor="let group of field.arrays">
+          <ng-container  
+            dynamicField
+            [submitted]="submitted"
+            [components]="componentHandler"
+            [config]="group"
+            [group]="ui">
+          </ng-container>
         </ng-container>
       </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
 </ng-template>

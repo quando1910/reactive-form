@@ -6,6 +6,7 @@ export class DefaultReactiveForm {
     formSubmitButtonExtraClass = '',
     formSubmitHidden = false,
     formMatchField = [],
+    formRequiredSymbol = '*',
     config = [] ) {
     return {
       form: {
@@ -16,7 +17,8 @@ export class DefaultReactiveForm {
           extraClass: formSubmitButtonExtraClass,
           hidden: formSubmitHidden
         },
-        matchField: formMatchField
+        matchField: formMatchField,
+        requiredSymbol: formRequiredSymbol
       },
       config: config
     };

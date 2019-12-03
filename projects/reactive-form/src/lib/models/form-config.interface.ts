@@ -18,6 +18,7 @@ export interface FormConfig {
      * Setting retype Field. Input Value is an array of 2 config.key. We also can input multiple array.
      */
     matchField?: Array<string> | Array<Array<string>>;
+    requiredSymbol: String;
   };
   /**
      * Config contains all settings of Input form.
