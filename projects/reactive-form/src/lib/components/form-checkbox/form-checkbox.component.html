@@ -3,9 +3,10 @@
   [ngClass]="submitted && group.controls[config.key].errors ? errorClassContainer : activeClassContainer"
   [formGroup]="group">
   <input
+    [id]="config.key"
     type="checkbox"
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
-    <span class="desc">{{config.inputType.template.content}}</span>
+    <label [for]="config.key" class="desc">{{config.inputType.template.content}}</label>
 </div>

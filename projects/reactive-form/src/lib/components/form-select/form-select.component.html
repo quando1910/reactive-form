@@ -5,7 +5,7 @@
   <select 
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass" 
     [formControlName]="config.key">
-    <option value="">{{ config.inputType.placeholder }}</option>
+    <option *ngIf="config.inputType.placeholder" value="">{{ config.inputType.placeholder }}</option>
     <option *ngFor="let option of config.inputType.data" [value]="option.value">
       {{ option.text }}
     </option>

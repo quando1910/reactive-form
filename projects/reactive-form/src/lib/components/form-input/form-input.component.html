@@ -7,6 +7,10 @@
     [type]="config.inputType.type"
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
+    [attr.minLength]="config.inputType.minLength"
+    [attr.maxLength]="config.inputType.maxLength"
+    (paste)="preventPaste($event)"
+    (keypress)="preventPress($event)"
     [formControlName]="config.key">
     <span class="desc">{{config.inputType.description}}</span>
 </div>

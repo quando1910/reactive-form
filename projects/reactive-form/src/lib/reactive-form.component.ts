@@ -106,7 +106,8 @@ export class ReactiveFormComponent implements OnChanges, OnInit {
   calculateForm(configForm) {
     this.cacheValue = this.form.value;
     this.config = configForm.config;
-    this.inheritConfig.config = this.config;
+    // this.inheritConfig.config = this.config;
+    this.inheritConfig = configForm;
   }
 
   reRenderConfig(configForm, previousConfig = null) {

@@ -14,4 +14,18 @@ import { TemplateFormComponent } from '../template-form/template-form.component'
 export class FormInputComponent extends TemplateFormComponent implements Field {
   config: FieldConfig;
   group: FormGroup;
+
+  preventPress(evt) {
+    if (this.config.inputType.type === 'number') {
+      if (evt && evt.which !== 8 && evt.which !== 0 && evt.which < 48 || evt.which > 57) {
+        evt.preventDefault();
+      }
+    }
+  }
+
+  preventPaste(evt) {
+    if (this.config.inputType.type === 'number') {
+      evt.preventDefault();
+    }
+  }
 }

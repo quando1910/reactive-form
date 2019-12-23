@@ -18,8 +18,9 @@ export default {
       label: 'name',
       key: 'name',
       inputType: {
-        type: 'text',
-        name: 'input'
+        type: 'number',
+        name: 'input',
+        minLength: 10
       },
       validation: [],
       errors: {
