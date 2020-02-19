@@ -5,10 +5,10 @@
   <select 
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass" 
     [formControlName]="config.key">
-    <option *ngIf="config.inputType.placeholder" value="">{{ config.inputType.placeholder }}</option>
-    <option *ngFor="let option of config.inputType.data" [value]="option.value">
-      {{ option.text }}
+    <option *ngIf="config.inputType.placeholder" value="undefined" disabled selected>{{ config.inputType.placeholder | dynamicPipe: customPipe: customPipeArgs }}</option>
+    <option *ngFor="let option of config.inputType.data" [value]="option.value" [disabled]="option.disabled">
+      {{ option.text | dynamicPipe: customPipe: customPipeArgs}}
     </option>
   </select>
-  <span class="desc">{{config.inputType.description}}</span>
+  <span class="desc">{{config.inputType.description | dynamicPipe: customPipe: customPipeArgs}}</span>
 </div>

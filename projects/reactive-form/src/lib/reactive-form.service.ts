@@ -3,9 +3,7 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { Field } from './models/field.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ReactiveFormService {
 
   components$ = new BehaviorSubject<any>(null);

@@ -18,9 +18,24 @@ export default {
       label: 'name',
       key: 'name',
       inputType: {
-        type: 'number',
-        name: 'input',
-        minLength: 10
+        name: 'radio',
+        data: [
+          {
+            text: '1',
+            disabled: null,
+            value: 1
+          },
+          {
+            text: '1',
+            value: 2,
+            disabled: true
+          },
+          {
+            text: '1',
+            value: 3
+          }
+        ],
+        placeholder: 'Country'
       },
       validation: [],
       errors: {

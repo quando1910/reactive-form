@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReactiveFormComponent } from './reactive-form.component';
@@ -57,4 +57,14 @@ import { ReactiveFormService } from './reactive-form.service';
     ReactiveFormService
   ]
 })
-export class ReactiveFormModule {}
+
+export class ReactiveFormModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: ReactiveFormModule,
+      providers: [
+        ReactiveFormService
+      ]
+    };
+  }
+}

@@ -28,4 +28,11 @@ export class FormInputComponent extends TemplateFormComponent implements Field {
       evt.preventDefault();
     }
   }
+
+  inputText(evt: any) {
+    if (this.config.inputType.type === 'number' && evt.target.value.length > this.config.inputType.maxLength) {
+      evt.target.value = evt.target.value.slice(0, this.config.inputType.maxLength);
+      this.group.get(this.config.key).setValue(evt.target.value);
+    }
+  }
 }

@@ -8,5 +8,5 @@
     [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
-    <label [for]="config.key" class="desc">{{config.inputType.template.content}}</label>
+    <label [for]="config.key" class="desc">{{config.inputType.template.content | dynamicPipe: customPipe: customPipeArgs}}</label>
 </div>

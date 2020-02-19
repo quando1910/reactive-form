@@ -6,7 +6,8 @@ import { CustomFormInputFileComponent } from './custom-input-file/custom-form-in
 import config from './config.data';
 import { FormConfig } from 'projects/reactive-form/src/lib/models/form-config.interface';
 import { PercentPipe } from '@angular/common';
-import { ReactiveFormService } from 'projects/reactive-form/src/lib/reactive-form.service';
+// import { ReactiveFormService } from 'projects/reactive-form/src/lib/reactive-form.service';
+import { ReactiveFormService } from '@theflames/reactive-form';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -29,6 +30,7 @@ export class AppComponent implements AfterViewInit {
     private cd: ChangeDetectorRef,
     private reactiveService: ReactiveFormService
   ) {}
+
 
   ngAfterViewInit() {
     this.reactiveService.setCustomComponents(this.components);

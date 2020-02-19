@@ -8,7 +8,9 @@ import { CustomFormInputFileComponent } from './custom-input-file/custom-form-in
 import { ReactiveFormsModule } from '@angular/forms';
 import { PercentPipe } from '@angular/common';
 import { FormInputFileComponent } from '@theflames/reactive-form/lib/components/form-input-file/form-input-file.component';
+import { RouterModule, Routes } from '@angular/router';
 // import { ReactiveFormModule } from '@theflames/reactive-form';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { FormInputFileComponent } from '@theflames/reactive-form/lib/components/
   imports: [
     BrowserModule,
     ReactiveFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   entryComponents: [
     CustomFormInputFileComponent,

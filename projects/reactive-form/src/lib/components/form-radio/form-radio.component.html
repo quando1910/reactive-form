@@ -8,8 +8,9 @@
         [ngClass]="submitted && group.controls[config.key].errors ? errorClass : activeClass"
         [formControlName]="config.key" 
         type="radio" 
+        [attr.disabled]="option.disabled"
         [value]="option.value">
-        <label class="label-inline" [for]="option.text">{{ option.text }}</label>
+        <label class="label-inline" [for]="option.text">{{ option.text | dynamicPipe: customPipe: customPipeArgs }}</label>
     </div>
-    <span class="desc">{{config.inputType.description}}</span>
+    <span class="desc">{{config.inputType.description | dynamicPipe: customPipe: customPipeArgs}}</span>
 </div>

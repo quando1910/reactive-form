@@ -12,6 +12,8 @@ import { FieldConfig } from '../../models/field-config.interface';
 export class TemplateFormComponent implements Field, OnInit {
   submitted: boolean;
   config: FieldConfig;
+  customPipeArgs: any;
+  customPipe: any;
   group: FormGroup;
   activeClass: string;
   errorClass: string;

@@ -20,7 +20,7 @@
     [ngClass]="inheritConfig.form.submitButton.extraClass"
     [disabled]="preventClick"
     type="submit">
-    {{ inheritConfig.form.submitButton.title }}
+    {{ inheritConfig.form.submitButton.title | dynamicPipe: customPipe: customPipeArgs }}
   </button>
   <ng-content select="[bottomForm]"></ng-content>
 </form>
@@ -33,12 +33,10 @@
   let-labelContent="labelContent" 
   let-formContent="formContent" 
   let-errorContent="errorContent">
+  <div class="reactive-controls">
     <ng-container [ngTemplateOutlet]="labelContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
     <ng-container [ngTemplateOutlet]="formContent" [ngTemplateOutletContext]="{field: field, config: config, form: form, labelContent: labelContent, formContent: formContent, errorContent: errorContent }"></ng-container> 
-  <div class="desc-content">
     <ng-container [ngTemplateOutlet]="descContent" [ngTemplateOutletContext]="{field: field}"></ng-container> 
-  </div>
-  <div class="error-content">
     <ng-container [ngTemplateOutlet]="errorContent" [ngTemplateOutletContext]="{field: field, form: form }"></ng-container> 
   </div>
 </ng-template>
@@ -47,24 +45,40 @@
   <ng-container *ngIf="field.label">
     <ng-container *ngIf="field.label.text; else simpleLabel">
       <div [ngClass]="field.label.extraClass">
-        <label>{{field.label.text}} </label>
-        <label *ngIf="field.label?.required" class="reactive-label-required" [ngClass]="field.label.extraClassRequired">{{inheritConfig.form.requiredSymbol}}</label>
-      </di回
+        <ng-container *ngIf="customPipe; else noPipe">
+          <label>{{field.label.text | dynamicPipe: customPipe: customPipeArgs}} </label>
+          <label *ngIf="field.label?.required" class="reactive-label-required" [ngClass]="field.label.extraClassRequired">{{inheritConfig.form.requiredSymbol | dynamicPipe: customPipe: customPipeArgs}}</label>
+        </ng-container>
+        <ng-template #noPipe>
+          <label>{{field.label.text}} </label>
+          <label *ngIf="field.label?.required" class="reactive-label-required" [ngClass]="field.label.extraClassRequired">{{inheritConfig.form.requiredSymbol}}</label>
+        </ng-template>
+      </div>
     </ng-container>
     <ng-template #simpleLabel>
-      <label>{{field.label}}</label>
+      <ng-container *ngIf="customPipe; else noPipe">
+        <label>{{field.label | dynamicPipe: customPipe: customPipeArgs}}</label>
+      </ng-container>
+      <ng-template #noPipe>
+        <label>{{field.label}} </label>
+      </ng-template>
     </ng-template>
   </ng-container>
 </ng-template>
 
 <ng-template #descContent let-field="field">
-  <div *ngIf="field.description">
-    <span>{{field.description}}</span>
+  <div *ngIf="field.description" class="desc-content">
+    <ng-container *ngIf="customPipe; else noPipe">
+      <span>{{field.description | dynamicPipe: customPipe: customPipeArgs }}</span>
+    </ng-container>
+    <ng-template #noPipe>
+      <span>{{field.description}}</span>
+    </ng-template>
   </div>
 </ng-template>
 
 <ng-template #errorContent let-field="field" let-form="form">
-  <ng-container *ngIf="submitted && form.controls[field.key] && form.controls[field.key].errors">
+  <div class="error-content" *ngIf="submitted && form.controls[field.key] && form.controls[field.key].errors">
     <p style="color:red" *ngFor="let error of form.controls[field.key].errors | keyvalue">
       <ng-container *ngIf="customPipe; else noPipe">
         {{ field.errors[error.key] | dynamicPipe: customPipe: customPipeArgs }}
@@ -73,7 +87,7 @@
         {{ field.errors[error.key] }}
       </ng-template>
     </p>
-  </ng-container> 
+  </div> 
 </ng-template>
 
 
@@ -91,6 +105,8 @@
         dynamicField
         [submitted]="submitted"
         [components]="componentHandler"
+        [customPipe]="customPipe"
+        [customPipeArgs]="customPipeArgs"
         [config]="field"
         [group]="form">
       </ng-container>
@@ -98,15 +114,15 @@
     <ng-container *ngIf="field.groups">
       <ng-container *ngIf="field.key; else noKey">
         <ng-container *ngFor="let group of field.groups">
-          <ng-container
-            [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
-            [ngTemplateOutletContext]="{field: group, config: config, form: form.controls[field.key], labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+            <ng-container
+              [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
+              [ngTemplateOutletContext]="{field: group, config: config, form: form.controls[field.key], labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
+            </ng-container>
           </ng-container>
         </ng-container>
-      </ng-container>
-      <ng-template #noKey>
-        <ng-container *ngFor="let group of field.groups">
-          <ng-container
+        <ng-template #noKey>
+          <ng-container *ngFor="let group of field.groups">
+            <ng-container
             [ngTemplateOutlet]="customLayout ? customLayout : defaultLayout"
             [ngTemplateOutletContext]="{field: group, config: config, form: form, labelContent: labelContent, formContent: formContent, errorContent: errorContent }">
           </ng-container>

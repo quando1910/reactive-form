@@ -11,6 +11,7 @@
     [attr.maxLength]="config.inputType.maxLength"
     (paste)="preventPaste($event)"
     (keypress)="preventPress($event)"
+    (input)="inputText($event)"
     [formControlName]="config.key">
-    <span class="desc">{{config.inputType.description}}</span>
+    <span class="desc">{{config.inputType.description | dynamicPipe: customPipe: customPipeArgs}}</span>
 </div>

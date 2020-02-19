@@ -71,6 +71,7 @@ export interface FieldConfig {
     description?: any;
     minLength?: any;
     maxLength?: any;
+    options?: any;
   };
   /**
      * Set it true, This key will disabled input.

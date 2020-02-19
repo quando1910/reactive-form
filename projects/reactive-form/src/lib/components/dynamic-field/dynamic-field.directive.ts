@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef, SimpleChanges } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef, SimpleChanges, Pipe } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { Field } from '../../models/field.interface';
@@ -23,6 +23,12 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
   @Input()
   components: {[type: string]: Type<Field>};
 
+  @Input()
+  customPipe: Pipe;
+
+  @Input()
+  customPipeArgs: any = [];
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef
@@ -41,6 +47,8 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
     if (this.component) {
       this.component.instance.config = this.config;
       this.component.instance.group = this.group;
+      this.component.instance.customPipe = this.customPipe;
+      this.component.instance.customPipeArgs = this.customPipeArgs;
       this.component.instance.submitted = this.submitted;
       this.component.instance.renderClass();
       this.component.instance.renderClassContainer();
@@ -58,6 +66,8 @@ export class DynamicFieldDirective implements Field, OnChanges, OnInit {
     this.buildComp();
     this.component.instance.config = this.config;
     this.component.instance.group = this.group;
+    this.component.instance.customPipe = this.customPipe;
+    this.component.instance.customPipeArgs = this.customPipeArgs;
     this.component.instance.submitted = this.submitted;
   }
 

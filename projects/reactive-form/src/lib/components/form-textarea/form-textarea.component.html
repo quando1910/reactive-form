@@ -9,5 +9,5 @@
     [attr.placeholder]="config.inputType.placeholder"
     [formControlName]="config.key">
   </textarea>
-  <span class="desc">{{config.inputType.description}}</span>
+  <span class="desc">{{config.inputType.description | dynamicPipe: customPipe: customPipeArgs}}</span>
 </div>
